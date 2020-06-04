@@ -1,36 +1,35 @@
-version: '3'
+version: "3"
 
 services:
   nginx:
     build:
       context: .
-      dockerfile: nginx.Dockerfile
+      dockerfile: docker/Nginx.Dockerfile
     ports:
       - 5000:80
-    volumes:
-      - ./public:/var/www/html
     links:
       - fpm
+      - db
+    volumes:
+      - ./html:/var/www/app
 
   fpm:
     build:
       context: .
-      dockerfile: fpm.Dockerfile
+      dockerfile: docker/Fpm.Dockerfile
     volumes:
-      - ./public:/var/www/html
-      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/app
     links:
       - db
 
   db:
-    image: mysql:5.7
+    image: mysql:5
     ports:
       - 33061:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=my_database
-    volumes:
-      - db_data:/var/lib/mysql
+      - MYSQL_DATABASE=appbank
+      - MYSQL_PORT=33061
 
   adminer:
     image: adminer
@@ -40,6 +39,3 @@ services:
       - 8080:8080
     environment:
       ADMINER_DESIGN: pepa-linha
-
-volumes:
-  db_data:
