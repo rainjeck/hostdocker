@@ -57,3 +57,10 @@ define( 'UPLOADS', 'assets/uploads' );
 ```
 sudo chown -R <username>:www-data html && sudo chmod -R 777 html
 ```
+
+
+**Create link to theme folder**
+
+```
+ln -r -s public/assets/themes/<theme> <link_name>
+```
