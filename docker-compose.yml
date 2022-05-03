@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/Nginx.Dockerfile
     ports:
-      - 5000:80
+      - 80:80
     links:
       - fpm
       - db
@@ -14,7 +14,9 @@ services:
       - ./html:/var/www/app
       - ./logs:/var/log/nginx
     networks:
-      - mynetwork
+      mynetwork:
+        aliases:
+          - mydev.dv
 
   fpm:
     build:
