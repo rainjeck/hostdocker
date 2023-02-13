@@ -9,7 +9,7 @@ sudo docker-compose build
 
 sudo docker-compose up -d
 
-sudo chown -R hope:www-data html && sudo chmod -R 777 html
+sudo chown -R <user>:www-data html && sudo chmod -R 777 html
 
 ```
 
@@ -62,7 +62,7 @@ define( 'UPLOADS', 'assets/uploads' );
 **Set permissions**
 
 ```
-sudo chown -R <username>:www-data html && sudo chmod -R 777 html
+sudo chown -R <user>:www-data html && sudo chmod -R 777 html
 ```
 ---
 
