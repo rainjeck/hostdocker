@@ -12,7 +12,7 @@ services:
       - db
     volumes:
       - ./html:/var/www/app
-      - ./logs:/var/log/nginx
+      # - ./logs:/var/log/nginx
     networks:
       mynetwork:
         aliases:
@@ -31,6 +31,7 @@ services:
 
   db:
     image: mysql:5
+    command: --default-authentication-plugin=mysql_native_password --sql-mode=NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
     ports:
       - 33061:3306
     environment:

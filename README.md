@@ -9,9 +9,11 @@ sudo docker-compose build
 
 sudo docker-compose up -d
 
-sudo chown -R <username>:www-data html && sudo chmod -R 777 html
+sudo chown -R hope:www-data html && sudo chmod -R 777 html
 
 ```
+
+php.ini: `docker cp <container_id>:/usr/local/etc/php/php.ini-production .`
 
 Host: `localhost:5000`
 
@@ -40,12 +42,17 @@ mv wordpress/wp-config-sample.php wordpress/wp-config.php
 4. Setup configuration in `wp-config.php`.
 
 ```
+define( 'WP_DEBUG_LOG', dirname(__FILE__) . '/wp-errors.log' );
+define( 'WP_DEBUG_DISPLAY', false );
+
 define( 'FS_METHOD', 'direct' );
 
 define( 'WP_CONTENT_DIR', dirname(__FILE__) . '/assets' );
-define( 'WP_CONTENT_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/assets' );
+define( 'WP_CONTENT_URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/assets" );
+
 define( 'WP_PLUGIN_DIR', dirname(__FILE__) . '/assets/plugins' );
-define( 'WP_PLUGIN_URL', 'http://' . $_SERVER['HTTP_HOST'] . '/assets/plugins' );
+define( 'WP_PLUGIN_URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/assets/plugins" );
+
 define( 'UPLOADS', 'assets/uploads' );
 ```
 
@@ -57,10 +64,12 @@ define( 'UPLOADS', 'assets/uploads' );
 ```
 sudo chown -R <username>:www-data html && sudo chmod -R 777 html
 ```
+---
 
+[Wordpress Theme Template](https://github.com/rainjeck/wordpress)
 
 **Create link to theme folder**
 
 ```
-ln -r -s public/assets/themes/<theme> <link_name>
+ln -r -s html/assets/themes/<theme> <link_name>
 ```
