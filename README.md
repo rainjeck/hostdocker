@@ -2,20 +2,26 @@
 
 nginx + php + mysql + adminer
 
-```
-git clone https://github.com/rainjeck/hostdocker.git .
+1. `git clone https://github.com/rainjeck/hostdocker.git .`
 
-sudo docker-compose build
+2. `sudo docker-compose build`
 
-sudo docker-compose up -d
+3. `docker-compose up -d`
 
-sudo chown -R <user>:www-data html && sudo chmod -R 777 html
+4. `sudo chown -R <user>:www-data html && sudo chmod -R 777 html`
 
-```
+5. Copy `php.ini` from fpm-container:
 
-php.ini: `docker cp <container_id>:/usr/local/etc/php/php.ini-production .`
+    `docker cp <container_id>:/usr/local/etc/php/php.ini-production ./docker/php.ini`
 
-Host: `localhost:5000`
+6. Uncomment option in `docker-compose.yml`
+
+7. Restart docker-compose
+
+8. bash in container: `docker exec -it <container> sh`
+---
+
+Host: `mydev.dv`, `localhost:5000`
 
 Adminer: `localhost:8080`
 
@@ -25,27 +31,28 @@ Adminer: `localhost:8080`
 
 Use `wordpress.sh` for downloading or:
 
-1. Download latest version & unzip
+1. Download latest version & unzip:
 
-```
-wget https://wordpress.org/latest.tar.gz && tar -xf latest.tar.gz
-```
+    `wget https://wordpress.org/latest.tar.gz && tar -xf latest.tar.gz`
 
-3. Rename `wp-config-sample.php` & dir `wp-content`
+2. Rename `wp-config-sample.php` to `wp-config.php`
 
-```
-mv wordpress/wp-content wordpress/assets
+    `mv wordpress/wp-config-sample.php wordpress/wp-config.php`
 
-mv wordpress/wp-config-sample.php wordpress/wp-config.php
-```
+3. Rename dir `wp-content` to `assets`
 
-4. Setup configuration in `wp-config.php`.
+    `mv wordpress/wp-content wordpress/assets`
+
+4. Setup configuration in `wp-config.php`:
 
 ```
 define( 'WP_DEBUG_LOG', dirname(__FILE__) . '/wp-errors.log' );
 define( 'WP_DEBUG_DISPLAY', false );
 
 define( 'FS_METHOD', 'direct' );
+
+define( 'WP_SITEURL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}" );
+define( 'WP_HOME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}" );
 
 define( 'WP_CONTENT_DIR', dirname(__FILE__) . '/assets' );
 define( 'WP_CONTENT_URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/assets" );
@@ -58,18 +65,11 @@ define( 'UPLOADS', 'assets/uploads' );
 
 5. Rename dir `wordpress` to `html`.
 
+6. Set permissions: `sudo chown -R <user>:www-data html && sudo chmod -R 777 html`
 
-**Set permissions**
+**Create link to theme folder:**
 
-```
-sudo chown -R <user>:www-data html && sudo chmod -R 777 html
-```
+`ln -r -s html/assets/themes/<theme> <link_name>`
+
 ---
-
 [Wordpress Theme Template](https://github.com/rainjeck/wordpress)
-
-**Create link to theme folder**
-
-```
-ln -r -s html/assets/themes/<theme> <link_name>
-```

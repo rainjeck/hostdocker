@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:7.4-fpm-buster
 
 RUN apt-get update && apt-get install -y \
         curl \
@@ -9,7 +9,10 @@ RUN apt-get update && apt-get install -y \
         libpng-dev \
         libonig-dev \
         libzip-dev \
-    && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
+        libldap2-dev \
+        libicu-dev \
+        libcurl4-openssl-dev \
+    && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip intl curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 

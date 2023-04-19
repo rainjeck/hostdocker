@@ -24,6 +24,7 @@ services:
       dockerfile: docker/Fpm.Dockerfile
     volumes:
       - ./html:/var/www/app
+      # - ./docker/php.ini:/usr/local/etc/php/php.ini
     links:
       - db
     networks:
@@ -35,9 +36,9 @@ services:
     ports:
       - 33061:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=appbank
-      - MYSQL_PORT=33061
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appbank
+      MYSQL_PORT: 33061
     networks:
       - mynetwork
 
@@ -48,7 +49,9 @@ services:
     ports:
       - 8080:8080
     environment:
-      ADMINER_DESIGN: pepa-linha
+      # ADMINER_DESIGN: pepa-linha
+      # ADMINER_DESIGN: konya
+      ADMINER_DESIGN: brade
     networks:
       - mynetwork
 
