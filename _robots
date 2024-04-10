@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+Disallow: /cgi-bin # классика..
+Disallow: *?
+Disallow: *&
+Disallow: /wp- # все файлы WP: /wp-json/, /wp-includes, /wp-content/plugins
+Disallow: /search # поиск
+Disallow: /author/ # архив автора
+Disallow: *?attachment_id= # страница вложения
+Disallow: */trackback # все трекбеки
+Disallow: */feed # все фиды
+Disallow: */embed # все встраивания
+Disallow: */page/ # все виды пагинации
+
+Allow: /archives/* # открываем content
+Allow: */uploads # открываем uploads
+Allow: /*/*.js # внутри /wp- (/*/ - для приоритета)
+Allow: /*/*.css # внутри /wp- (/*/ - для приоритета)
+Allow: /wp-*.png # картинки в плагинах, cache папке и т.д.
+Allow: /wp-*.jpg # картинки в плагинах, cache папке и т.д.
+Allow: /wp-*.jpeg # картинки в плагинах, cache папке и т.д.
+Allow: /wp-*.gif # картинки в плагинах, cache папке и т.д.
+
+Host: https://mydev.dv
+Sitemap: https://mydev.dv/sitemap.xml
