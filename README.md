@@ -77,10 +77,7 @@ Use `wordpress.sh` for downloading or:
 
     define( 'UPLOADS', 'assets/uploads' );
 
-    define( 'WP_POST_REVISIONS', false );
-
     define( 'DISABLE_WP_CRON', true );
-    define( 'WP_CRON_LOCK_TIMEOUT', 60 );
     ```
 
 5. Rename dir `wordpress` to `html`.
