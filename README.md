@@ -27,6 +27,9 @@ nginx + php + mysql + adminer
     memory_limit = 1024M
     post_max_size = 100M
     upload_max_filesize = 90M
+
+    SMTP = mailpit
+    smtp_port = 1025
     ```
 
 7. Uncomment option in `docker-compose.yml`
@@ -39,6 +42,7 @@ nginx + php + mysql + adminer
 Host: `mydev.dv`, `localhost:5000`
 
 Adminer: `localhost:8080`
+Mailpit: `localhost:8025`
 
 ---
 
