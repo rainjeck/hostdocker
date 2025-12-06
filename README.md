@@ -4,9 +4,9 @@ nginx + php + mysql + adminer
 
 1. `git clone https://github.com/rainjeck/hostdocker.git .`
 
-2. `docker-compose build`
+2. `docker compose build`
 
-3. `docker-compose up -d`
+3. `docker compose up -d`
 
 4. `sudo chown -R <user>:www-data html && sudo chmod -R 777 html`
 

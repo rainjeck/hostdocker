@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:8.2-fpm-alpine
 
 RUN apk update \
   && apk add --no-cache curl-dev libzip-dev icu-dev libpng-dev libjpeg-turbo-dev freetype-dev libwebp-dev \
